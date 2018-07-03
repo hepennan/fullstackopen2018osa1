@@ -70,13 +70,13 @@ class App extends React.Component {
                 <div>
                     <button onClick={this.kasvataHyva}>
                         hyvä
-            </button>
+                    </button>
                     <button onClick={this.kasvataNeutraali}>
                         neutraali
-            </button>
+                    </button>
                     <button onClick={this.kasvataHuono}>
                         huono
-            </button>
+                     </button>
                 </div>
                 <div>
                     <h1>statistiikka</h1>
@@ -90,6 +90,8 @@ class App extends React.Component {
         )
     }
 }
+
+
 
 
 
