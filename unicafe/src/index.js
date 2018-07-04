@@ -11,9 +11,6 @@ class App extends React.Component {
       huono: 0,
       kaikki: []
     };
-    this.kasvataHyva = this.kasvataHyva.bind(this);
-    this.kasvataNeutraali = this.kasvataNeutraali.bind(this);
-    this.kasvataHuono = this.kasvataHuono.bind(this);
   }
 
   kasvataHyva = () => {
@@ -62,14 +59,26 @@ class App extends React.Component {
   };
 
   render() {
+    if (this.state.kaikki.length < 1) {
+      return (
+        <div>
+          <Annapalautetta
+            hyva={this.kasvataHyva}
+            neutraali={this.kasvataNeutraali}
+            huono={this.kasvataHuono}
+          />
+          <h1>statistiikka</h1>
+          <p>ei yhtään palautetta annettu</p>
+        </div>
+      );
+    }
     return (
       <div>
-        <h1>anna palautetta</h1>
-        <div>
-          <Button handleClick={this.kasvataHyva} text="hyvä" />
-          <Button handleClick={this.kasvataNeutraali} text="neutraali" />
-          <Button handleClick={this.kasvataHuono} text="huono" />
-        </div>
+        <Annapalautetta
+          hyva={this.kasvataHyva}
+          neutraali={this.kasvataNeutraali}
+          huono={this.kasvataHuono}
+        />
 
         <Statistics
           hyva={this.state.hyva}
@@ -82,6 +91,19 @@ class App extends React.Component {
     );
   }
 }
+
+const Annapalautetta = props => {
+  return (
+    <div>
+      <h1>anna palautetta</h1>
+      <div>
+        <Button handleClick={props.hyva} text="hyvä" />
+        <Button handleClick={props.neutraali} text="neutraali" />
+        <Button handleClick={props.huono} text="huono" />
+      </div>
+    </div>
+  );
+};
 
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
