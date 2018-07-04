@@ -13,6 +13,8 @@ class App extends React.Component {
     };
   }
 
+
+
   kasvataHyva = () => {
     this.setState({
       hyva: this.state.hyva + 1,
@@ -109,24 +111,37 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
+
+
 const Statistics = props => {
   return (
     <div>
       <h1>statistiikka</h1>
-      <Statistic maara={props.hyva} text="hyvä" />
-      <Statistic maara={props.neutraali} text="neutraali" />
-      <Statistic maara={props.huono} text="huono" />
-      <Statistic maara={props.keskiarvo} text="keskiarvo" />
-      <Statistic maara={props.positiivisia} text="positiivisia" laatu="%" />
+      <table>
+        <tbody>
+          <Statistic maara={props.hyva} text="hyvä" />
+          <Statistic maara={props.neutraali} text="neutraali" />
+          <Statistic maara={props.huono} text="huono" />
+          <Statistic maara={props.keskiarvo} text="keskiarvo" />
+          <Statistic maara={props.positiivisia} text="positiivisia" laatu="%" />
+        </tbody>
+      </table>
     </div>
-  );
-};
+  )
+
+}
+
 
 const Statistic = props => {
   return (
-    <p>
-      {props.text} {props.maara} {props.laatu}
-    </p>
+    <tr>
+      <td>
+        {props.text}
+      </td>
+      <td>
+        {props.maara} {props.laatu}
+      </td>
+    </tr>
   );
 };
 

@@ -3,3 +3,10 @@ body {
   padding: 30;
   font-family: sans-serif;
 }
+
+table,
+td {
+    border: 0px;
+}
+
+
