@@ -6,23 +6,11 @@ class App extends React.Component {
     super(props)
     this.state = {
       selected: 0,
-      votes: []
+      votes: [] //list of the votes (index numbers) given
     }
   }
 
-
-  randomSelected = () => {
-    this.setState({
-      selected: Math.floor(Math.random() * (this.props.anecdotes.length))
-    });
-  };
-
-  voteAnecdote = () => {
-    this.setState({
-      votes: this.state.votes.concat(this.state.selected)
-    })
-  }
-
+  //returns the index of the anecdote that has got most votes
   maxVotes = () => {
     let maxAmmount = 0;
     let winner = 0;
@@ -41,6 +29,7 @@ class App extends React.Component {
 
   }
 
+  //takes the index of the anecdote as parameter and returns the number of votes given
   totalVotes = (ind) => {
     let total = 0
     this.state.votes.forEach(element => {
@@ -58,6 +47,17 @@ class App extends React.Component {
     const withMostVotes = this.maxVotes()
     const contentMostVotes = anecdotes[withMostVotes]
     const maxNumberOfVotes = this.totalVotes(withMostVotes)
+    const vote = () => {
+      this.setState({
+        votes: this.state.votes.concat(this.state.selected)
+      })
+    }
+
+    const selectRandom = () => {
+      this.setState({
+        selected: Math.floor(Math.random() * (this.props.anecdotes.length))
+      });
+    };
 
     const totalVotesSelected = () => {
       let total = 0
@@ -75,8 +75,8 @@ class App extends React.Component {
       <div>
         <p>{anecdotes[nowSelected]}</p>
         <p>has {totalVotesSelected()} votes</p>
-        <button onClick={this.randomSelected.bind(this)}>next anectdote</button>
-        <button onClick={this.voteAnecdote.bind(this)}>vote</button>
+        <button onClick={selectRandom}>next anectdote</button>
+        <button onClick={vote}>vote</button>
         <h1>anecdote with most votes:</h1>
         <p>{contentMostVotes}</p>
         <p>has {maxNumberOfVotes} votes</p>
