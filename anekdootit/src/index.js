@@ -5,9 +5,11 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      votes: []
     }
   }
+
 
   randomSelected = () => {
     this.setState({
@@ -15,12 +17,32 @@ class App extends React.Component {
     });
   };
 
+  voteAnecdote = () => {
+    this.setState({
+      votes: this.state.votes.concat(this.state.selected)
+    })
+  }
+
 
   render() {
+    const anecdotes = this.props.anecdotes
+    const nowSelected = this.state.selected
+
+    const totalVotes = () => {
+      let total = 0
+      this.state.votes.forEach(element => {
+        if (element === nowSelected) {
+          total += 1
+        }
+      });
+      return total
+    }
     return (
       <div>
-        <p>{this.props.anecdotes[this.state.selected]}</p>
+        <p>{anecdotes[nowSelected]}</p>
+        <p>has {totalVotes()} votes</p>
         <button onClick={this.randomSelected.bind(this)}>next anectdote</button>
+        <button onClick={this.voteAnecdote.bind(this)}>vote</button>
 
       </div>
     )
