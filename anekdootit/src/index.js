@@ -23,12 +23,43 @@ class App extends React.Component {
     })
   }
 
+  maxVotes = () => {
+    let maxAmmount = 0;
+    let winner = 0;
+    let i = 0;
+    const last = this.props.anecdotes.length
+    do {
+      let currAmmount = this.totalVotes(i)
+      if (currAmmount > maxAmmount) {
+        winner = i;
+        maxAmmount = currAmmount;
+      }
+      i += 1;
+    } while (i < last)
+
+    return winner
+
+  }
+
+  totalVotes = (ind) => {
+    let total = 0
+    this.state.votes.forEach(element => {
+      if (element === ind) {
+        total += 1
+      }
+    });
+    return total
+  }
+
 
   render() {
     const anecdotes = this.props.anecdotes
     const nowSelected = this.state.selected
+    const withMostVotes = this.maxVotes()
+    const contentMostVotes = anecdotes[withMostVotes]
+    const maxNumberOfVotes = this.totalVotes(withMostVotes)
 
-    const totalVotes = () => {
+    const totalVotesSelected = () => {
       let total = 0
       this.state.votes.forEach(element => {
         if (element === nowSelected) {
@@ -37,12 +68,19 @@ class App extends React.Component {
       });
       return total
     }
+
+
+
     return (
       <div>
         <p>{anecdotes[nowSelected]}</p>
-        <p>has {totalVotes()} votes</p>
+        <p>has {totalVotesSelected()} votes</p>
         <button onClick={this.randomSelected.bind(this)}>next anectdote</button>
         <button onClick={this.voteAnecdote.bind(this)}>vote</button>
+        <h1>anecdote with most votes:</h1>
+        <p>{contentMostVotes}</p>
+        <p>has {maxNumberOfVotes} votes</p>
+
 
       </div>
     )
